@@ -3,14 +3,12 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 import MenuVue from "./components/Menu";
 import HomeVue from "./components/Home";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
     MenuVue,
     HomeVue
   }
