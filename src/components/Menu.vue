@@ -11,7 +11,7 @@
       </div>
       <div class="item-navlink-grp" id="myTopnav">
         <a href="/cook" class="menu-txt">Cook</a>
-        <a href="/buy" class="menu-txt">Buy</a>
+        <a href="/buy" class="menu-txt">Dine</a>
         <a href="/login" class="menu-txt">Login</a>
         <a href="/signup" class="menu-txt">Sign Up</a>
         <a href="javascript:void(0);" class="icon" v-on:click="openNav">
@@ -54,12 +54,14 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Luckiest+Guy");
+@import url("https://fonts.googleapis.com/css?family=Lato");
 
 .navmenu {
   display: flex;
   flex-direction: row;
   border-bottom: 25px solid #ffaa2a;
   white-space: nowrap;
+  margin-top: 5px;
 }
 
 .menu-txt {
@@ -73,6 +75,7 @@ export default {
   flex-grow: 6;
   display: inline;
   white-space: nowrap;
+  margin-left: 5px;
 }
 
 #logo {
@@ -92,7 +95,7 @@ export default {
 
 .item-navlink-grp {
   flex-grow: 0;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .item-navlink-grp a {

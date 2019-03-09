@@ -1,16 +1,23 @@
 <template>
-  <div id="app"><MenuVue ref="iconInput"></MenuVue> <HomeVue></HomeVue></div>
+  <div id="app">
+    <MenuVue ref="iconInput"/>
+    <CookVue/>
+  </div>
 </template>
 
 <script>
 import MenuVue from "./components/Menu";
 import HomeVue from "./components/Home";
+import CookVue from "./components/Cook";
+import FileSelect from "./components/FileSelect";
 
 export default {
   name: "App",
   components: {
     MenuVue,
-    HomeVue
+    HomeVue,
+    CookVue,
+    FileSelect
   }
 };
 
@@ -31,5 +38,6 @@ window.addEventListener("resize", function() {
   margin: 0px;
   padding: 0px;
   transition: margin-left 0.5s;
+  overflow-x: hidden;
 }
 </style>
