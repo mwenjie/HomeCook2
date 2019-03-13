@@ -12,7 +12,7 @@
           <img class="border rounded-lg w-48 h-48 ml-2" :src="item.message"/>
           <p class="text-center text-sm">{{ item.title }}</p>
         </div>
-        <div class="ml-2"><file-select v-model="files" @selected="showModal"></file-select></div>
+        <div class="ml-2 w-48 h-48"><file-select @selected="showModal"></file-select></div>
       </ul>
       <div>
         <Modal v-show="isModalVisible" :file1="this.files" @close="closeModal"/>

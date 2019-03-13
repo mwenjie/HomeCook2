@@ -4,9 +4,9 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <div class="border rounded-lg w-48 h-48 py-1 px-1">
+    <div class="border border-dashed rounded-lg w-full h-full py-1 px-1">
       <span>
-        <i class="material-icons circle-icon">add</i>
+        <i class="material-icons circle-icon" style="font-size: 18px">add</i>
       </span>
     </div>
     <input type="file" @change="handleFileChange" multiple/>
@@ -18,22 +18,21 @@ export default {
   props: {
     value: ''
   },
-
   methods: {
     handleFileChange: function(event) {
       var input = event.target;
-      // Ensure that you have a file before attempting to read it
+      var files = [];
       if (input.files && input.files[0]) {
-      // create a new FileReader to read this image and convert to base64 format
-        var reader = new FileReader();
-        // Define a callback function to run, when FileReader finishes its job
-        reader.onload = (e) => {
-        // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-        // Read image as base64 and set to imageData
-        this.$emit("selected", e.target.result);
+        var files_count = input.files.length;
+        for (let i=0; i<files_count; i++){
+          var reader = new FileReader();
+          reader.onload = (e) => {
+            files.push(e.target.result);
+          }
+          reader.readAsDataURL(input.files[i]);
         }
-        // Start the reader job - read file as a data url (base64 format)
-        reader.readAsDataURL(input.files[0]);
+        console.log(files);
+        this.$emit("selected", files);
       }
     }
   }
@@ -47,7 +46,6 @@ export default {
 }
 
 .circle-icon {
-  padding: 5px;
   border-radius: 50%;
   border: 2px solid lightgrey;
   cursor: pointer;
