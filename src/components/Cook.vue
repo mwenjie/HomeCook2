@@ -9,7 +9,7 @@
     <div>
       <ul class="list-reset inline-flex flex-wrap mt-2">
         <div class="flex-col mb-2" v-for="item in items">
-          <img class="border rounded-lg w-48 h-48 ml-2" :src="item.message"/>
+          <img class="border rounded-lg w-48 h-48 ml-2" :src="item.imgBase64"/>
           <p class="text-center text-sm">{{ item.title }}</p>
         </div>
         <div class="ml-2 w-48 h-48"><file-select @selected="showModal"></file-select></div>
@@ -35,8 +35,8 @@ export default {
       files: Array,
       isModalVisible: true,
       items: [
-      { message: "https://tailwindcss.com/img/card-top.jpg", title: "Mountain" }, 
-      { message: "https://tailwindcss.com/img/card-left.jpg", title: "Coffee" }]
+      { imgBase64: "https://tailwindcss.com/img/card-top.jpg", title: "Mountain" }, 
+      { imgBase64: "https://tailwindcss.com/img/card-left.jpg", title: "Coffee" }]
     }
   },
   methods: {
