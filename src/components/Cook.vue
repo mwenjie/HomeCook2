@@ -32,8 +32,8 @@ export default {
   },
   data() {
     return {
-      files: Array,
-      isModalVisible: true,
+      files: [],
+      isModalVisible: false,
       items: [
       { imgBase64: "https://tailwindcss.com/img/card-top.jpg", title: "Mountain" }, 
       { imgBase64: "https://tailwindcss.com/img/card-left.jpg", title: "Coffee" }]
@@ -43,7 +43,7 @@ export default {
     showModal: function (files) {
       this.isModalVisible = true;
       this.files = files;
-    },
+    }, 
     closeModal() {
       this.isModalVisible = false;
     }

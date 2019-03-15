@@ -18,21 +18,24 @@ export default {
   props: {
     value: ''
   },
+  data() {
+    return {
+      imgStore: []
+    }
+  },
   methods: {
     handleFileChange: function(event) {
       var input = event.target;
-      var files = [];
       if (input.files && input.files[0]) {
         var files_count = input.files.length;
         for (let i=0; i<files_count; i++){
           var reader = new FileReader();
           reader.onload = (e) => {
-            files.push(e.target.result);
+            //files.push(e.target.result);
+            this.$emit("selected", e.target.result);
           }
           reader.readAsDataURL(input.files[i]);
         }
-        console.log(files);
-        this.$emit("selected", files);
       }
     }
   }

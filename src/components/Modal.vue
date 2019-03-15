@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="relative">
-            <div class="mx-1 w-24 h-24 mb-1"><file-select @selected="showModal"></file-select></div>
+            <div class="mx-1 w-24 h-24 mb-1"><file-select @selected="addfile"></file-select></div>
          </div>
         </div>
         <div class="flex-col mx-1 my-1">
@@ -40,8 +40,8 @@
         <div class="flex-col mx-1 my-1">
           <div class="font-sans text-sm font-medium px-1">Ingredients</div>
           <div class="font-sans text-xs font-small text-grey px-1 mb-1">Didn't measure exactly? No worries. Approximate and mention it in the cook's note, below.</div>
-          <draggable v-model="exampleList">
-             <div v-for="(item, index) in exampleList">
+          <draggable v-model="recipe.exampleList">
+             <div v-for="(item, index) in recipe.exampleList">
               <div class="flex w-full justify-start items-center mb-2 border-b h-8"
                @mouseover="selectedItem = index" @mouseleave="selectedItem = -1">
                 <i class="fa fa-times cursor-pointer" style="font-size:12px" v-show="index == selectedItem" 
@@ -73,33 +73,33 @@ export default {
     FileSelect,
     draggable
   },
-  props: ["file1"],
+  props: ['file1'],
   name: "Modal",
-  data: () => ({
-    isActive: true,
-    selectedImage: 0,
-    recipe: {
+  data: function() {
+    return {
+      isActive: true,
+      selectedImage: 0,
       selectedItem: 0,
-      imageData: [
-      "https://tailwindcss.com/img/card-top.jpg",
-      "https://tailwindcss.com/img/card-left.jpg",
-      "https://i.ibb.co/GHcX72k/110060-00-2x.png",
-      "https://i.ibb.co/0q5Q4hV/Untitled.png",
-      "https://i.ibb.co/0q5Q4hV/Untitled.png"
-      ],
-      exampleList: [
-          {'value': '1/2 cup salt'},
-          {'value': '1 Egg'}
-      ]
+      recipe: {
+        selectedItem: 0,
+        images: [],
+        imageData: [
+        "https://tailwindcss.com/img/card-top.jpg",
+        "https://tailwindcss.com/img/card-left.jpg",
+        "https://i.ibb.co/GHcX72k/110060-00-2x.png",
+        "https://i.ibb.co/0q5Q4hV/Untitled.png",
+        "https://i.ibb.co/0q5Q4hV/Untitled.png"
+        ],
+        exampleList: [
+            {'value': '1/2 cup salt'},
+            {'value': '1 Egg'}
+        ]
+      }
     }
-  }),
+  },
   methods: {
     close() {
       this.$emit("close");
-    },
-    showModal: function (files) {
-      this.isModalVisible = true;
-      this.files = files;
     },
     vdelete(index) {
       this.exampleList.splice(index,1);
@@ -111,6 +111,8 @@ export default {
     },
     publish(){
       this.$emit("close");
+    },
+    addfile: function (datafiles){
     }
   }
 };
