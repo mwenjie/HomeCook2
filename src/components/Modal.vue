@@ -73,7 +73,7 @@ export default {
     FileSelect,
     draggable
   },
-  props: ['file1', 'value'],
+  props: ['file1'],
   name: "Modal",
   data: function() {
     return {
@@ -115,12 +115,12 @@ export default {
       this.$emit("save", this.recipe);
     },
     addfile: function (datafiles){
-      this.recipe.images.push(datafiles);
-    }
+     this.recipe.images.push(datafiles);
+    },
   },
-  created: function(){
-     this.recipe.images = this.file1;
-     console.log('hello');
+    created: function(){
+      this.recipe.images = this.file1;
+      console.log('hello');
     }
 };
 </script>

@@ -14,8 +14,8 @@
         </div>
         <div class="ml-2 w-48 h-48"><file-select @selected="saveFiles"></file-select></div>
       </ul>
-      <component v-bind:is="componentName" :file1=this.files @close="closeModal" v-show="isModalVisible">
-      </component>
+      <Modal :file1=this.files @close="closeModal" v-if="isModalVisible">
+      </Modal>
     </div>
   </div>
 </template>
@@ -31,8 +31,7 @@ export default {
   },
   data() {
     return {
-      componentName: null,
-      isModalVisible: true,
+      isModalVisible: false,
       files: [],
       items: [
       { imgBase64: "https://tailwindcss.com/img/card-top.jpg", title: "Mountain" }, 
@@ -42,7 +41,6 @@ export default {
   methods: {
     saveFiles: function (files) {
       this.files = files;
-      this.componentName = 'Modal'; //this would load the component on click and not load on pageLoad
       this.isModalVisible = true;
     }, 
     saveRecipe: function (recipe) {
