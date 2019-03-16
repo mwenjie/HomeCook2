@@ -12,11 +12,10 @@
           <img class="border rounded-lg w-48 h-48 ml-2" :src="item.imgBase64"/>
           <p class="text-center text-sm">{{ item.title }}</p>
         </div>
-        <div class="ml-2 w-48 h-48"><file-select @selected="showModal"></file-select></div>
+        <div class="ml-2 w-48 h-48"><file-select @selected="saveFiles"></file-select></div>
       </ul>
-      <div>
-        <Modal v-show="isModalVisible" :file1="this.files" @close="closeModal"/>
-      </div>
+      <component v-bind:is="componentName" :file1=this.files @close="closeModal" v-show="isModalVisible">
+      </component>
     </div>
   </div>
 </template>
@@ -32,19 +31,25 @@ export default {
   },
   data() {
     return {
+      componentName: null,
+      isModalVisible: true,
       files: [],
-      isModalVisible: false,
       items: [
       { imgBase64: "https://tailwindcss.com/img/card-top.jpg", title: "Mountain" }, 
       { imgBase64: "https://tailwindcss.com/img/card-left.jpg", title: "Coffee" }]
     }
   },
   methods: {
-    showModal: function (files) {
-      this.isModalVisible = true;
+    saveFiles: function (files) {
       this.files = files;
+      this.componentName = 'Modal'; //this would load the component on click and not load on pageLoad
+      this.isModalVisible = true;
     }, 
-    closeModal() {
+    saveRecipe: function (recipe) {
+      this.isModalVisible = false;
+      console.log(recipe);
+    },
+    closeModal(){
       this.isModalVisible = false;
     }
   }

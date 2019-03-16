@@ -9,15 +9,13 @@
 import MenuVue from "./components/Menu";
 import HomeVue from "./components/Home";
 import CookVue from "./components/Cook";
-import FileSelect from "./components/FileSelect";
 
 export default {
   name: "App",
   components: {
     MenuVue,
     HomeVue,
-    CookVue,
-    FileSelect
+    CookVue
   }
 };
 

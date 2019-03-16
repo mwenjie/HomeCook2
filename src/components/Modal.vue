@@ -4,44 +4,44 @@
       <div class="flex-col bg-white max-w-sm w-full">
         <div class="flex justify-between bg-grey-lighter py-1 px-1 border-b">
           <div class="text-sm font-medium py-1 px-1">Create Recipe</div>
-          <i class="material-icons cursor-pointer" @click="close">close</i>
+          <i class="material-icons cursor-pointer" @click="closeModal">close</i>
         </div>
         <div class="flex justify-start py-1 px-1 border-b pl-1">
           <i class="material-icons">account_circle</i>
-          <input
-            class="font-sans text-sm text-grey-darkest px-1 py-1 focus:outline-none"
+          <input v-model="recipe.title" 
+            class="font-sans text-sm text-grey-darkest px-1 py-1 focus:outline-none" 
             type="text"
             placeholder="Give your recipe a title"
           />
         </div>
         <div class="flex justify-start mt-1 my-1 mx-1 border-b flex-no-wrap overflow-x-scroll">
-          <div v-for="(item, index) in this.file1">
+          <div v-for="(item, index) in this.recipe.images">
             <div class="relative">
               <div class="border rounded-lg h-24 w-24 ml-1 mb-1 cursor-pointer"
               :style="{ backgroundImage: 'url(' + item + ')'  }" 
              style="background-size:cover"
-             v-bind:class="{ 'border-orange border-t-2 border-r-2 border-l-2 border-b-2': index == selectedImage }"
-              @click="selectedImage = index" 
+             v-bind:class="{ 'border-orange border-t-2 border-r-2 border-l-2 border-b-2': index == recipe.coverId }"
+              @click="recipe.coverId = index" 
              />
              <i class="fa fa-star absolute pin-t pin-r bg-grey-lighter cursor-pointer" title="Album Cover"
-              v-show="index == selectedImage"
+              v-show="index == recipe.coverId"
             />
             </div>
           </div>
           <div class="relative">
-            <div class="mx-1 w-24 h-24 mb-1"><file-select @selected="addfile"></file-select></div>
+            <div class="mx-1 w-24 h-24 mb-1"><file-select @selected1="addfile"></file-select></div>
          </div>
         </div>
         <div class="flex-col mx-1 my-1">
           <div class="font-sans text-sm font-medium px-1">Introduction</div>
           <div class="font-sans text-xs font-small text-grey px-1 mb-1">Tell us about it. What secret ingredients did you add?</div>
-          <textarea class="border w-full h-24"></textarea>
+          <textarea class="border w-full h-24" v-model="recipe.description"></textarea>
         </div>
         <div class="flex-col mx-1 my-1">
           <div class="font-sans text-sm font-medium px-1">Ingredients</div>
           <div class="font-sans text-xs font-small text-grey px-1 mb-1">Didn't measure exactly? No worries. Approximate and mention it in the cook's note, below.</div>
-          <draggable v-model="recipe.exampleList">
-             <div v-for="(item, index) in recipe.exampleList">
+          <draggable v-model="recipe.ingredients">
+             <div v-for="(item, index) in recipe.ingredients">
               <div class="flex w-full justify-start items-center mb-2 border-b h-8"
                @mouseover="selectedItem = index" @mouseleave="selectedItem = -1">
                 <i class="fa fa-times cursor-pointer" style="font-size:12px" v-show="index == selectedItem" 
@@ -73,16 +73,18 @@ export default {
     FileSelect,
     draggable
   },
-  props: ['file1'],
+  props: ['file1', 'value'],
   name: "Modal",
   data: function() {
     return {
       isActive: true,
-      selectedImage: 0,
       selectedItem: 0,
       recipe: {
-        selectedItem: 0,
+        title: "",
+        coverId: 0,
         images: [],
+        description: "",
+        ingredients: [],
         imageData: [
         "https://tailwindcss.com/img/card-top.jpg",
         "https://tailwindcss.com/img/card-left.jpg",
@@ -98,23 +100,28 @@ export default {
     }
   },
   methods: {
-    close() {
+    closeModal(){
       this.$emit("close");
     },
     vdelete(index) {
-      this.exampleList.splice(index,1);
+      this.recipe.ingredients.splice(index,1);
     },
     vadd(){
-      this.exampleList.push({
+      this.recipe.ingredients.push({
         value: ""
       });
     },
     publish(){
-      this.$emit("close");
+      this.$emit("save", this.recipe);
     },
     addfile: function (datafiles){
+      this.recipe.images.push(datafiles);
     }
-  }
+  },
+  created: function(){
+     this.recipe.images = this.file1;
+     console.log('hello');
+    }
 };
 </script>
 
